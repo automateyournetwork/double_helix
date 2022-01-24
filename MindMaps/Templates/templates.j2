@@ -1,0 +1,30 @@
+# {{ project }}
+## Template
+### {{ template.name }}
+#### Description: {{ template.description }}
+#### Tags
+{%- for tag in template.tags %}
+##### Name: {{ tag.name }}
+##### ID: {{ tag.id }}
+{%- endfor %}
+#### Author: {{ template.author }}
+#### Device Types
+{%- for type in template.deviceTypes %}
+##### Product Family: {{ type.productFamily }}
+{%- endfor %}
+#### Software Type: {{ template.softwareType }}
+#### Parameters
+{%- for param in template.templateParams %}
+##### {{ param.displayName }}
+###### ID: {{ param.id }}
+###### Type: {{ param.dataType }}
+###### Description: {{ param.description }}
+###### Instructions: {{ param.instructionText }}
+###### Default Value: {{ param.defaultValue }}
+###### Required: {{ param.required }}
+###### Not Param: {{ param.notParam }}
+###### Param Array: {{ param.paramArray }}
+###### Group: {{ param.group }}
+###### Order: {{ param.order }}
+###### Custom Order: {{ param.customOrder }}
+{%- endfor %}

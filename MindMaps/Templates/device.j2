@@ -1,0 +1,619 @@
+# {{ device.hostname }}
+## Base Details
+### Management State
+#### Management State:{{ device.managementState }}
+#### Managed At Least Once:{{ device.managedAtleastOnce }}
+### Description: {{ device.description }}
+### ID
+#### {{ device.id }}
+##### Tenant: {{ device.instanceTenantId }}
+##### Location: {{ device.location }}
+##### Location Name: {{ device.locationName }}
+##### Tag Count: {{ device.tagCount }}
+### Management State: {{ device.managementState }}
+### Platform
+#### Last Booted: {{ device.bootDateTime }}
+#### Uptime: {{ device.upTime }}
+#### Type: {{ device.type }}
+#### Series: {{ device.series }}
+#### Family: {{ device.family }}
+#### Platform ID: {{ device.platformId }}
+#### Line Card ID: {{ device.lineCardId }}
+#### Line Card Count: {{ device.lineCardCount }}
+#### Interface Count: {{ device.interfaceCount }}
+#### Memory Size: {{ device.memorySize }}
+#### Management IP: {{ device.managementIpAddress }}
+#### MAC Address: {{ device.macAddress }}
+#### Support Level: {{ device.deviceSupportLevel }}
+#### Serial Number: {{ device.serialNumber }}
+#### AP Ethernet MAC Address: {{ device.apEthernetMacAddress }}
+#### AP Manager Interface IP: {{ device.apManagerInterfaceIp }}
+#### Associated WLC IP: {{ device.associatedWlcIp }}
+#### Tunnel UDP Port: {{ device.tunnelUdpPort }}
+#### WAAS Device Mode: {{ device.waasDeviceMode }}
+#### Software
+##### Type: {{ device.softwareType }}
+##### Version: {{ device.softwareVersion }}
+### Role
+#### {{ device.role }}
+#### Source: {{ device.roleSource }}
+### Collection
+#### Status: {{ device.collectionStatus }}
+#### Last Updated: {{ device.lastUpdated }} {{ device.lastUpdateTime }}
+#### Collection Interval: {{ device.collectionInterval }}
+### Reachability
+#### {{ device.reachabilityStatus }}
+#### Failure Reason: {{ device.reachabilityFailureReason }}
+#### Error Code: {{ device.errorCode }}
+#### Error Description: {{ device.errorDescription }}
+### SNMP
+#### Location: {{ device.snmpLocation }}
+#### Contact: {{ device.snmpContact }}
+## Chassis
+{%- for item in chassis %}
+### {{ item.name }}
+#### Description: {{ item.description }}
+#### Part Number: {{ item.partNumber }}
+#### Hardware Version: {{ item.hardwareVersion }}
+#### Serial Number: {{ item.serialNumber }}
+#### Is Reporting Alarms Allowed: {{ item.isReportingAlarmsAllowed }}
+{%- endfor %}
+{%- if powersupply %}
+## Power Supply
+{%-     for item in powersupply %}
+### {{ item.name }}
+#### Description: {{ item.description }}
+#### Part Number: {{ item.productId }}
+#### Vendor Equipment Type: {{ item.vendorEquipmentType }}
+#### Serial Number: {{ item.serialNumber }}
+#### Operational State Code: {{ item.operationalStateCode }}
+{%-     endfor %}
+{%- endif %}
+{%- if fan %}
+## Fan
+{%-     for item in fan if fan %}
+### {{ item.name }}
+#### Description: {{ item.description }}
+#### Part Number: {{ item.productId }}
+#### Vendor Equipment Type: {{ item.vendorEquipmentType }}
+#### Serial Number: {{ item.serialNumber }}
+#### Operational State Code: {{ item.operationalStateCode }}
+{%-     endfor %}
+{%- endif %}
+{%- if backplane %}
+## Backplane
+{%-     for item in backplane if backplane %}
+### {{ item.name }}
+#### Description: {{ item.description }}
+#### Part Number: {{ item.productId }}
+#### Vendor Equipment Type: {{ item.vendorEquipmentType }}
+#### Serial Number: {{ item.serialNumber }}
+#### Operational State Code: {{ item.operationalStateCode }}
+{%-     endfor %}
+{%- endif %}
+{%- if module %}
+## Module
+{%-     for item in module if module %}
+### {{ item.name }}
+#### Description: {{ item.description }}
+#### Part Number: {{ item.productId }}
+#### Vendor Equipment Type: {{ item.vendorEquipmentType }}
+#### Serial Number: {{ item.serialNumber }}
+#### Operational State Code: {{ item.operationalStateCode }}
+{%-     endfor %}
+{%- endif %}
+{%- if processor %}
+## Processor
+{%-     for item in processor if processor %}
+### {{ item.name }}
+#### Description: {{ item.description }}
+#### Part Number: {{ item.productId }}
+#### Vendor Equipment Type: {{ item.vendorEquipmentType }}
+#### Serial Number: {{ item.serialNumber }}
+#### Operational State Code: {{ item.operationalStateCode }}
+{%-     endfor %}
+{%- endif %}
+{%- if other %}
+## Other Parts
+{%-     for item in other if other %}
+### {{ item.name }}
+#### Description: {{ item.description }}
+#### Part Number: {{ item.productId }}
+#### Vendor Equipment Type: {{ item.vendorEquipmentType }}
+#### Serial Number: {{ item.serialNumber }}
+#### Operational State Code: {{ item.operationalStateCode }}
+{%-     endfor %}
+{%- endif %}
+{%- if poe %}
+## Power Over Ethernet
+{%-     for interface in poe %}
+### {{ interface.interfaceName }}
+#### Status
+##### Operational: {{ interface.operStatus }}
+##### Admin: {{ interface.adminStatus }}
+#### Power
+##### Allocated: {{ interface.allocatedPower }}
+##### Maximum: {{ interface.maxPortPower }}
+##### Drawn: {{ interface.portPowerDrawn }}
+{%-     endfor %}
+{%- endif %}
+{%- if vlan %}
+## VLANs
+{%-     for item in vlan %}
+### {{ item.vlanNumber }}
+#### Name: {{ item.interfaceName }}
+{%-         if item.ipAddress %}
+#### IP Address: {{ item.ipAddress }} / {{ item.prefix }}
+#### Network Address: {{ item.networkAddress }}
+#### Number of IPs: {{ item.numberOfIPs }}
+{%-         endif %}
+{%-     endfor %}
+{%- endif %}
+{%- if insightVLAN or insightSpeedDuplex %}
+## Insights
+{%-     if insightVLAN %}
+### Link Mismatch - VLANs
+{%-         for insight in insightVLAN if device.hostname == insight.startDeviceHostName or insight.endDeviceHostName %}
+#### ID: {{ insight.id }}
+##### Type: {{ insight.type }}
+##### Average Update Frequency: {{ insight.avgUpdateFrequency }}
+##### Last Updated: {{ insight.lastUpdated }}
+##### Number of Updates: {{ insight.numUpdates }}
+##### Link Status: {{ insight.linkStatus }}
+##### Start Device
+###### {{ insight.startDeviceHostName }}
+###### ID: {{ insight.startDeviceId }}
+###### IP Address: {{ insight.startDeviceIpAddress }}
+##### End Device
+###### {{ insight.endDeviceHostName }}
+###### End Device ID: {{ insight.endDeviceId }}
+###### IP Address: {{ insight.endDeviceIpAddress }}
+##### Start Port
+###### {{ insight.startPortName }}
+###### ID: {{ insight.startPortId }}
+###### Address: {{ insight.startPortAddress }}
+###### Mask: {{ insight.startPortMask }}
+###### Speed: {{ insight.startPortSpeed }}
+###### Duplex: {{ insight.startPortDuplex }}
+###### PEP ID: {{ insight.startPortPepId }}
+###### Allowed VLAN IDs: {{ insight.startPortAllowedVlanIds }}
+###### Native VLAN: {{ insight.startPortNativeVlanId }}
+##### End Port
+###### {{ insight.endPortName }}
+###### ID: {{ insight.endPortId }}
+###### Address: {{ insight.endPortAddress }}
+###### Mask: {{ insight.endPortMask }}
+###### Speed: {{ insight.endPortSpeed }}
+###### Duplex: {{ insight.endPortDuplex }}
+###### PEP ID: {{ insight.endPortPepId }}
+###### Allowed VLAN IDs: {{ insight.endPortAllowedVlanIds }}
+###### Native VLAN: {{ insight.endPortNativeVlanId }}
+##### Instance Info
+###### ID: {{ insight.instanceUuid }}
+###### Tenant ID: {{ insight.instanceTenantId }}
+{%-         endfor %}
+{%-     endif %}
+{%-     if insightSpeedDuplex %}
+### Link Mismatch - Speed / Duplex
+{%-         for insight in insightSpeedDuplex if device.hostname == insight.startDeviceHostName or insight.endDeviceHostName %}
+#### ID: {{ insight.id }}
+##### Type: {{ insight.type }}
+##### Average Update Frequency: {{ insight.avgUpdateFrequency }}
+##### Last Updated: {{ insight.lastUpdated }}
+##### Number of Updates: {{ insight.numUpdates }}
+##### Link Status: {{ insight.linkStatus }}
+##### Start Device
+###### {{ insight.startDeviceHostName }}
+###### ID: {{ insight.startDeviceId }}
+###### IP Address: {{ insight.startDeviceIpAddress }}
+##### End Device
+###### {{ insight.endDeviceHostName }}
+###### End Device ID: {{ insight.endDeviceId }}
+###### IP Address: {{ insight.endDeviceIpAddress }}
+##### Start Port
+###### {{ insight.startPortName }}
+###### ID: {{ insight.startPortId }}
+###### Address: {{ insight.startPortAddress }}
+###### Mask: {{ insight.startPortMask }}
+###### Speed: {{ insight.startPortSpeed }}
+###### Duplex: {{ insight.startPortDuplex }}
+###### PEP ID: {{ insight.startPortPepId }}
+###### Allowed VLAN IDs: {{ insight.startPortAllowedVlanIds }}
+###### Native VLAN: {{ insight.startPortNativeVlanId }}
+##### End Port
+###### {{ insight.endPortName }}
+###### ID: {{ insight.endPortId }}
+###### Address: {{ insight.endPortAddress }}
+###### Mask: {{ insight.endPortMask }}
+###### Speed: {{ insight.endPortSpeed }}
+###### Duplex: {{ insight.endPortDuplex }}
+###### PEP ID: {{ insight.endPortPepId }}
+###### Allowed VLAN IDs: {{ insight.endPortAllowedVlanIds }}
+###### Native VLAN: {{ insight.endPortNativeVlanId }}
+##### Instance Info
+###### ID: {{ insight.instanceUuid }}
+###### Tenant ID: {{ insight.instanceTenantId }}
+{%-         endfor %}
+{%-     endif %}
+{%- endif %}
+## Interfaces 
+### Application
+{%- for interface in interfaces if interface['portName'].startswith("App") %}
+#### {{ interface.portName }}
+##### Description: {{ interface.description }}
+##### Status
+###### Admin: {{ interface.adminStatus }}
+###### Operational: {{ interface.status }}
+##### Addresses
+###### MAC: {{ interface.macAddress }}
+###### IP: {{ interface.ipv4Address }}
+###### Mask: {{ interface.ipv4Mask }}
+##### Physical
+###### Speed: {{ interface.speed }}
+###### Duplex: {{ interface.duplex }}
+###### MTU: {{ interface.mtu }}
+###### Type: {{ interface.interfaceType }}
+###### Media: {{ interface.mediaType }}
+###### Class Name: {{ interface.className }}
+###### Index: {{ interface.ifIndex }}
+###### Power over Ethernet: {{ interface.poweroverethernet }}
+##### Port
+###### Type: {{ interface.portType }}
+###### Mode: {{ interface.portMode }}
+##### VLANs
+###### ID: {{ interface.vlanId }}
+###### Native: {{ interface.nativeVlanId }}
+###### Voice: {{ interface.voiceVlan }}
+##### Routing
+###### OSPF: {{ interface.ospfSupport }}
+###### ISIS: {{ interface.isisSupport }}
+##### Physical Mappings
+###### Name: {{ interface.mappedPhysicalInterfaceName }}
+###### ID: {{ interface.mappedPhysicalInterfaceId }}
+##### ID
+###### {{ interface.id }}
+###### Instance: {{ interface.instanceUuid }}
+###### Tenant: {{ interface.instanceTenantId }}
+##### Last Updated {{ interface.lastUpdated }}
+{%- endfor %}
+### Bluetooth
+{%- for interface in interfaces if interface['portName'].startswith("Blue") %}
+#### {{ interface.portName }}
+##### Description: {{ interface.description }}
+##### Status
+###### Admin: {{ interface.adminStatus }}
+###### Operational: {{ interface.status }}
+##### Addresses
+###### MAC: {{ interface.macAddress }}
+###### IP: {{ interface.ipv4Address }}
+###### Mask: {{ interface.ipv4Mask }}
+##### Physical
+###### Speed: {{ interface.speed }}
+###### Duplex: {{ interface.duplex }}
+###### MTU: {{ interface.mtu }}
+###### Type: {{ interface.interfaceType }}
+###### Media: {{ interface.mediaType }}
+###### Class Name: {{ interface.className }}
+###### Index: {{ interface.ifIndex }}
+###### Power over Ethernet: {{ interface.poweroverethernet }}
+##### Port
+###### Type: {{ interface.portType }}
+###### Mode: {{ interface.portMode }}
+##### VLANs
+###### ID: {{ interface.vlanId }}
+###### Native: {{ interface.nativeVlanId }}
+###### Voice: {{ interface.voiceVlan }}
+##### Routing
+###### OSPF: {{ interface.ospfSupport }}
+###### ISIS: {{ interface.isisSupport }}
+##### Physical Mappings
+###### Name: {{ interface.mappedPhysicalInterfaceName }}
+###### ID: {{ interface.mappedPhysicalInterfaceId }}
+##### ID
+###### {{ interface.id }}
+###### Instance: {{ interface.instanceUuid }}
+###### Tenant: {{ interface.instanceTenantId }}
+##### Last Updated {{ interface.lastUpdated }}
+{%- endfor %}
+### Looback
+{%- for interface in interfaces if interface['portName'].startswith("Loop") %}
+#### {{ interface.portName }}
+##### Description: {{ interface.description }}
+##### Status
+###### Admin: {{ interface.adminStatus }}
+###### Operational: {{ interface.status }}
+##### Addresses
+###### MAC: {{ interface.macAddress }}
+###### IP: {{ interface.ipv4Address }}
+###### Mask: {{ interface.ipv4Mask }}
+##### Physical
+###### Speed: {{ interface.speed }}
+###### Duplex: {{ interface.duplex }}
+###### MTU: {{ interface.mtu }}
+###### Type: {{ interface.interfaceType }}
+###### Media: {{ interface.mediaType }}
+###### Class Name: {{ interface.className }}
+###### Index: {{ interface.ifIndex }}
+###### Power over Ethernet: {{ interface.poweroverethernet }}
+##### Port
+###### Type: {{ interface.portType }}
+###### Mode: {{ interface.portMode }}
+##### VLANs
+###### ID: {{ interface.vlanId }}
+###### Native: {{ interface.nativeVlanId }}
+###### Voice: {{ interface.voiceVlan }}
+##### Routing
+###### OSPF: {{ interface.ospfSupport }}
+###### ISIS: {{ interface.isisSupport }}
+##### Physical Mappings
+###### Name: {{ interface.mappedPhysicalInterfaceName }}
+###### ID: {{ interface.mappedPhysicalInterfaceId }}
+##### ID
+###### {{ interface.id }}
+###### Instance: {{ interface.instanceUuid }}
+###### Tenant: {{ interface.instanceTenantId }}
+##### Last Updated {{ interface.lastUpdated }}
+{%- endfor %}
+### SVI
+{%- for interface in interfaces if interface['portName'].startswith("Vlan") %}
+#### {{ interface.portName }}
+##### Description: {{ interface.description }}
+##### Status
+###### Admin: {{ interface.adminStatus }}
+###### Operational: {{ interface.status }}
+##### Addresses
+###### MAC: {{ interface.macAddress }}
+###### IP: {{ interface.ipv4Address }}
+###### Mask: {{ interface.ipv4Mask }}
+##### Physical
+###### Speed: {{ interface.speed }}
+###### Duplex: {{ interface.duplex }}
+###### MTU: {{ interface.mtu }}
+###### Type: {{ interface.interfaceType }}
+###### Media: {{ interface.mediaType }}
+###### Class Name: {{ interface.className }}
+###### Index: {{ interface.ifIndex }}
+###### Power over Ethernet: {{ interface.poweroverethernet }}
+##### Port
+###### Type: {{ interface.portType }}
+###### Mode: {{ interface.portMode }}
+##### VLANs
+###### ID: {{ interface.vlanId }}
+###### Native: {{ interface.nativeVlanId }}
+###### Voice: {{ interface.voiceVlan }}
+##### Routing
+###### OSPF: {{ interface.ospfSupport }}
+###### ISIS: {{ interface.isisSupport }}
+##### Physical Mappings
+###### Name: {{ interface.mappedPhysicalInterfaceName }}
+###### ID: {{ interface.mappedPhysicalInterfaceId }}
+##### ID
+###### {{ interface.id }}
+###### Instance: {{ interface.instanceUuid }}
+###### Tenant: {{ interface.instanceTenantId }}
+##### Last Updated {{ interface.lastUpdated }}
+{%- endfor %}
+### Fourty Gigabit
+{%- for interface in interfaces if interface['portName'].startswith("Fourty") %}
+#### {{ interface.portName }}
+##### Description: {{ interface.description }}
+##### Status
+###### Admin: {{ interface.adminStatus }}
+###### Operational: {{ interface.status }}
+##### Addresses
+###### MAC: {{ interface.macAddress }}
+###### IP: {{ interface.ipv4Address }}
+###### Mask: {{ interface.ipv4Mask }}
+##### Physical
+###### Speed: {{ interface.speed }}
+###### Duplex: {{ interface.duplex }}
+###### MTU: {{ interface.mtu }}
+###### Type: {{ interface.interfaceType }}
+###### Media: {{ interface.mediaType }}
+###### Class Name: {{ interface.className }}
+###### Index: {{ interface.ifIndex }}
+###### Power over Ethernet: {{ interface.poweroverethernet }}
+##### Port
+###### Type: {{ interface.portType }}
+###### Mode: {{ interface.portMode }}
+##### VLANs
+###### ID: {{ interface.vlanId }}
+###### Native: {{ interface.nativeVlanId }}
+###### Voice: {{ interface.voiceVlan }}
+##### Routing
+###### OSPF: {{ interface.ospfSupport }}
+###### ISIS: {{ interface.isisSupport }}
+##### Physical Mappings
+###### Name: {{ interface.mappedPhysicalInterfaceName }}
+###### ID: {{ interface.mappedPhysicalInterfaceId }}
+##### ID
+###### {{ interface.id }}
+###### Instance: {{ interface.instanceUuid }}
+###### Tenant: {{ interface.instanceTenantId }}
+##### Last Updated {{ interface.lastUpdated }}
+{%- endfor %}
+### Twenty Five Gigabit
+{%- for interface in interfaces if interface['portName'].startswith("Twenty") %}
+#### {{ interface.portName }}
+##### Description: {{ interface.description }}
+##### Status
+###### Admin: {{ interface.adminStatus }}
+###### Operational: {{ interface.status }}
+##### Addresses
+###### MAC: {{ interface.macAddress }}
+###### IP: {{ interface.ipv4Address }}
+###### Mask: {{ interface.ipv4Mask }}
+##### Physical
+###### Speed: {{ interface.speed }}
+###### Duplex: {{ interface.duplex }}
+###### MTU: {{ interface.mtu }}
+###### Type: {{ interface.interfaceType }}
+###### Media: {{ interface.mediaType }}
+###### Class Name: {{ interface.className }}
+###### Index: {{ interface.ifIndex }}
+###### Power over Ethernet: {{ interface.poweroverethernet }}
+##### Port
+###### Type: {{ interface.portType }}
+###### Mode: {{ interface.portMode }}
+##### VLANs
+###### ID: {{ interface.vlanId }}
+###### Native: {{ interface.nativeVlanId }}
+###### Voice: {{ interface.voiceVlan }}
+##### Routing
+###### OSPF: {{ interface.ospfSupport }}
+###### ISIS: {{ interface.isisSupport }}
+##### Physical Mappings
+###### Name: {{ interface.mappedPhysicalInterfaceName }}
+###### ID: {{ interface.mappedPhysicalInterfaceId }}
+##### ID
+###### {{ interface.id }}
+###### Instance: {{ interface.instanceUuid }}
+###### Tenant: {{ interface.instanceTenantId }}
+##### Last Updated {{ interface.lastUpdated }}
+{%- endfor %}
+### Ten Gigabit
+{%- for interface in interfaces if interface['portName'].startswith("Ten") %}
+#### {{ interface.portName }}
+##### Description: {{ interface.description }}
+##### Status
+###### Admin: {{ interface.adminStatus }}
+###### Operational: {{ interface.status }}
+##### Addresses
+###### MAC: {{ interface.macAddress }}
+###### IP: {{ interface.ipv4Address }}
+###### Mask: {{ interface.ipv4Mask }}
+##### Physical
+###### Speed: {{ interface.speed }}
+###### Duplex: {{ interface.duplex }}
+###### MTU: {{ interface.mtu }}
+###### Type: {{ interface.interfaceType }}
+###### Media: {{ interface.mediaType }}
+###### Class Name: {{ interface.className }}
+###### Index: {{ interface.ifIndex }}
+###### Power over Ethernet: {{ interface.poweroverethernet }}
+##### Port
+###### Type: {{ interface.portType }}
+###### Mode: {{ interface.portMode }}
+##### VLANs
+###### ID: {{ interface.vlanId }}
+###### Native: {{ interface.nativeVlanId }}
+###### Voice: {{ interface.voiceVlan }}
+##### Routing
+###### OSPF: {{ interface.ospfSupport }}
+###### ISIS: {{ interface.isisSupport }}
+##### Physical Mappings
+###### Name: {{ interface.mappedPhysicalInterfaceName }}
+###### ID: {{ interface.mappedPhysicalInterfaceId }}
+##### ID
+###### {{ interface.id }}
+###### Instance: {{ interface.instanceUuid }}
+###### Tenant: {{ interface.instanceTenantId }}
+##### Last Updated {{ interface.lastUpdated }}
+{%- endfor %}
+### Gigabit
+{%- for interface in interfaces if interface['portName'].startswith("Giga") %}
+#### {{ interface.portName }}
+##### Description: {{ interface.description }}
+##### Status
+###### Admin: {{ interface.adminStatus }}
+###### Operational: {{ interface.status }}
+##### Addresses
+###### MAC: {{ interface.macAddress }}
+###### IP: {{ interface.ipv4Address }}
+###### Mask: {{ interface.ipv4Mask }}
+##### Physical
+###### Speed: {{ interface.speed }}
+###### Duplex: {{ interface.duplex }}
+###### MTU: {{ interface.mtu }}
+###### Type: {{ interface.interfaceType }}
+###### Media: {{ interface.mediaType }}
+###### Class Name: {{ interface.className }}
+###### Index: {{ interface.ifIndex }}
+###### Power over Ethernet: {{ interface.poweroverethernet }}
+##### Port
+###### Type: {{ interface.portType }}
+###### Mode: {{ interface.portMode }}
+##### VLANs
+###### ID: {{ interface.vlanId }}
+###### Native: {{ interface.nativeVlanId }}
+###### Voice: {{ interface.voiceVlan }}
+##### Routing
+###### OSPF: {{ interface.ospfSupport }}
+###### ISIS: {{ interface.isisSupport }}
+##### Physical Mappings
+###### Name: {{ interface.mappedPhysicalInterfaceName }}
+###### ID: {{ interface.mappedPhysicalInterfaceId }}
+##### ID
+###### {{ interface.id }}
+###### Instance: {{ interface.instanceUuid }}
+###### Tenant: {{ interface.instanceTenantId }}
+##### Last Updated {{ interface.lastUpdated }}
+{%- endfor %}
+## Stack
+{%- if stack.stackSwitchInfo %}
+### Switch Info
+{%-     for item in stack.stackSwitchInfo %}
+#### {{ item.stackMemberNumber }}
+##### Priority 
+###### Hardware: {{ item.hwPriority }}
+###### Switch: {{ item.switchPriority }}
+##### Platform: {{ item.platformId }}
+##### Role: {{ item.role }}
+##### State: {{ item.state }}
+##### MAC Address: {{ item.macAddress }}
+##### Next Reload: {{ item.numNextReload }}
+##### Software Image: {{ item.softwareImage }}
+##### Serial Number: {{ item.serialNumber }}
+{%-     endfor %}
+{%- endif %}
+{%- if stack.stackPortInfo %}
+### Port Info
+{%-     for item in stack.stackPortInfo %}
+#### {{ item.name }}
+##### Is Synch Ok: {{ item.isSynchOk }}
+##### Switchport: {{ item.switchPort }}
+##### Neighbor Port: {{ item.neighborPort }}
+##### Link OK Changes: {{ item.nrLinkOkChanges }}
+##### Stack Cable Length: {{ item.stackCableLengthInfo }}
+##### Stack Port Status: {{ item.stackPortOperStatusInfo }}
+##### Link Active: {{ item.linkActive }}
+##### Link OK: {{ item.linkOk }}
+{%-     endfor %}
+{%- endif %}
+{%- if health %}
+## Health
+{%-     for item in health if item.name == device.hostname %}
+### Overall: {{ item.overallHealth }}
+#### Reachability: {{ item.reachabilityHealth }}
+#### Issue Count: {{ item.issueCount }}
+#### Interface Link Error: {{ item.interfaceLinkErrHealth }}
+#### Inter Device Link Available: {{ item.interDeviceLinkAvailHealth }}
+#### Inter Device Link Available Fabric: {{ item.interDeviceLinkAvailFabric }}
+#### CPU: {{ item.cpuHealth }}
+#### Memory: {{ item.memoryUtilizationHealth }}
+#### Client Count: {{ item.clientCount }}
+#### Free Timer: {{ item.freeTimerScore }}
+#### Packet Pool: {{ item.packetPoolHealth }}
+#### WQE Pools: {{ item.wqePoolsHealth }}
+#### WAN Link Utilization: {{ item.wanLinkUtilization }}
+#### Interference: {{ item.interferenceHealth }}
+#### Noise: {{ item.noiseHealth }}
+#### Air Quality: {{ item.airQualityHealth }}
+#### Utilization: {{ item.airQualityHealth }}
+{%-     endfor %}
+{%- endif %}
+## Compliance
+{%- for item in compliance %}
+### {{ item.complianceType }}
+#### Status: {{ item.status }}
+#### State: {{ item.state }}
+#### Last Contact
+##### Sync: {{ item.lastSyncTime }}
+##### Update: {{ item.lastUpdateTime }}
+{%-     if item.message %}
+#### Message: {{ item.message }}
+{%-     endif %}
+{%-     if item.additionalDataURL %}
+#### [Additional Info]({{ item.additionalDataURL }})
+{%-     endif %}
+{%- endfor %}

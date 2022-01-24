@@ -1,0 +1,26 @@
+# Latest Health Score: {{ health.response[0].healthScore }}
+## Timestamp: {{ health.response[0].time }}
+## Counts
+### Total: {{ health.response[0].totalCount }}
+### Good: {{ health.response[0].goodCount }}
+### Fair: {{ health.response[0].fairCount }}
+### Bad: {{ health.response[0].badCount }}
+### No Health: {{ health.response[0].noHealthCount }}
+## Measured By: {{ health.measuredBy }}
+## Network Layers 
+{%- for layer in health.healthDistirubution %}
+### {{ layer.category }}
+#### Health Score: {{ layer.healthScore }}
+##### Counts
+###### Total: {{ layer.totalCount }}
+###### Good: {{ layer.goodCount }}
+###### Fair: {{ layer.fairCount }}
+###### Bad: {{ layer.badCount }}
+###### No Health: {{ layer.noHealthCount }}
+##### Percentages
+###### Total: {{ layer.totalCount }}
+###### Good: {{ layer.goodPercentage }}
+###### Fair: {{ layer.fairPercentage }}
+###### Bad: {{ layer.badPercentage }}
+###### No Health: {{ layer.noHealthPercentage }}
+{%- endfor %}

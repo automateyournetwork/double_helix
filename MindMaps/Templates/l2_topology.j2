@@ -1,0 +1,38 @@
+# {{ vlan }}
+## Nodes
+{%- for node in vlanTopology.nodes %}
+### {{ node.label }}
+#### ID: {{ node.id }}
+#### Platform
+##### Type: {{ node.deviceType }}
+##### Series: {{ node.deviceSeries }}
+##### Family: {{ node.family }}
+##### ID: {{ node.platformId }}
+#### Identity 
+##### IP: {{ node.ip }}
+##### MAC: {{ node.additionalInfo.macAddress }}
+##### Software Version: {{ node.softwareVersion }}
+##### Role: {{ node.role }}
+##### Role Source: {{ node.roleSource }}
+{%-     for role in node.additionalInfo.fabricRoles %}
+##### Fabric Role: {{ node.roleSource }}
+{%-     endfor %}
+##### Parent Node ID: {{ node.customParam.parentNodeId }}
+#### Greyout: {{ node.greyOut }}
+{%- endfor %}
+## Links
+{%- for link in vlanTopology.links %}
+### ID: {{ link.id }}
+#### Source: {{ link.source }}
+#### Target: {{ link.target }}
+#### Status: {{ link.linkStatus }}
+#### Greyout: {{ link.greyOut }}
+#### Start Port
+##### {{ link.startPortName }}
+###### ID: {{ link.startPortID }}
+###### Speed: {{ link.startPortSpeed }}
+#### End Port
+##### {{ link.endPortName }}
+###### ID: {{ link.endPortID }}
+###### Speed: {{ link.endPortSpeed }}
+{%- endfor %}

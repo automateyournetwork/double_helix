@@ -1,0 +1,19 @@
+# {{ DNAC }}
+## Project
+{%- for project in projects %}
+### {{ project.name }}
+#### ID: {{ project.id }}
+#### Deletable: {{ project.isDeletable }}
+#### Templates
+{%-     for template in project.templates %}
+##### {{ template.name }}
+###### ID: {{ template.id }}
+###### Composite: {{ template.composite }}
+###### Language: {{ template.language }}
+###### Custom Parameter Order: {{ template.customParamsOrder }}
+###### Last Update Time: {{ template.lastUpdateTime }}
+###### Last Version Time: {{ template.latestVersionTime }}
+###### Project Associated: {{ template.projectAssociated }}
+###### Document Database: {{ template.documentDatabase }}
+{%-     endfor %}
+{%- endfor %}

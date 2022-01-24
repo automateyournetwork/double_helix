@@ -1,0 +1,18 @@
+# {{ DNAC }}
+## Flow Analysis Results
+{%- for flow in flow_analysis %}
+### {{ flow.id }}
+#### Status: {{ flow.status }}
+#### Timing
+##### Created: {{ flow.createTime }}
+##### Updated: {{ flow.lastUpdateTime }}
+##### Periodic Refresh: {{ flow.periodicRefresh }}
+#### Source IP: {{ flow.sourceIP }}
+#### Destination IP: {{ flow.destIP }}
+#### Control Path: {{ flow.controlPath }}
+#### Previous Flow Analysis ID: {{ flow.previousFlowAnalysisId }}
+#### Inclusions
+{%-     for inclusion in flow.inclusions %}
+##### {{ inclusion }}
+{%-     endfor %}
+{%- endfor %}

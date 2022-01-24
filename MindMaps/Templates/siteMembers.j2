@@ -1,0 +1,51 @@
+# {{ site }}
+## Site Members
+{%- for item in siteMembers if item.response %}
+{%-    for member in item.response %}
+### {{ member.hostname }}
+#### UUID: {{ member.instanceUuid }}
+#### Tenant ID: {{ member.instanceTenantId }}
+#### Deployment Pending: {{ member.deployPending }}
+#### Instance Version: {{ member.instanceVersion }}
+#### Access Point Manager Interface IP: {{ member.apManagerInterfaceIp }}
+#### Associated WLC IP: {{ member.associatedWlcIp }}
+#### Boot Date Time: {{ member.bootDateTime }}
+#### Collection
+##### {{ member.collectionInterval }}
+##### {{ member.collectionIntervalValue }}
+##### {{ member.collectionStatus }}
+#### Description: {{ member.description }}
+#### Support Level: {{ member.deviceSupportLevel }}
+#### Family: {{ member.family }}
+#### Interface Count: {{ member.interfaceCount }}
+#### Inventory Status: {{ member.inventoryStatusDetail }}
+#### Last Update: {{ member.lastUpdated }}
+#### Last Update Time: {{ member.lastUpdateTime }}
+#### Line Card Count: {{ member.lineCardCount }}
+#### Line Card ID: {{ member.lineCardId }}
+#### MAC Address: {{ member.macAddress }}
+#### Mamagement
+##### Managed At Least Once: {{ member.managedAtleastOnce }}
+##### IP Address: {{ member.managementIpAddress }}
+##### State: {{ member.managementState }}
+#### Memory Size: {{ member.memorySize }}
+#### Platform ID: {{ member.platformId }}
+#### Reachability
+##### {{ member.reachabilityStatus }}
+##### Failure Reason: {{ member.reachabilityFailureReason }}
+#### Role: {{ member.role }}
+#### Role Source: {{ member.roleSource }}
+#### Serial Number: {{ member.serialNumber }}
+#### Series: {{ member.series }}
+#### SNMP
+##### Contact: {{ member.snmpContact }}
+##### Location: {{ member.snmpLocation }}
+#### Software
+##### Type: {{ member.softwareType }}
+##### Version: {{ member.softwareVersion }}
+#### Tag Count: {{ member.tagCount }}
+#### Tunnel UDP Port: {{ member.tunnelUdpPort }}
+#### Type: {{ member.type }}
+#### Uptime: {{ member.upTime }} {{ member.uptimeSeconds }}
+{%-    endfor %}
+{%- endfor %}

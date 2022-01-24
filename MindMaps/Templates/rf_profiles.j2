@@ -1,0 +1,30 @@
+# {{ DNAC }}
+## RF Profiles
+{%- for profile in rfProfiles %}
+### {{ profile.name }}
+#### Default Profile: {{ profile.defaultRfProfile }}
+#### Channel Width: {{ profile.channelWidth }}
+#### Enable
+##### Brownfield: {{ profile.enableBrownField }}
+##### Custom: {{ profile.enableCustom }}
+##### Radio Type A: {{ profile.enableRadioTypeA }}
+##### Radio Type B: {{ profile.enableRadioTypeB }}
+#### Radio Type A
+##### Radio Channels: {{ profile.radioTypeAProperties.radioChannels }}
+##### Data Rates: {{ profile.radioTypeAProperties.dataRates }}
+##### Mandatory Data Rates: {{ profile.radioTypeAProperties.mandatoryDataRates }}
+##### Power Threshold: {{ profile.radioTypeAProperties.powerThresholdV1 }}
+##### RX SOP Threshold: {{ profile.radioTypeAProperties.rxSopThreshold }}
+##### Power Levels
+###### Minimum: {{ profile.radioTypeAProperties.minPowerLevel }}
+###### Maximum: {{ profile.radioTypeAProperties.maxPowerLevel }}
+#### Radio Type B
+##### Radio Channels: {{ profile.radioTypeBProperties.radioChannels }}
+##### Data Rates: {{ profile.radioTypeBProperties.dataRates }}
+##### Mandatory Data Rates: {{ profile.radioTypeBProperties.mandatoryDataRates }}
+##### Power Threshold: {{ profile.radioTypeBProperties.powerThresholdV1 }}
+##### RX SOP Threshold: {{ profile.radioTypeBProperties.rxSopThreshold }}
+##### Power Levels
+###### Minimum: {{ profile.radioTypeBProperties.minPowerLevel }}
+###### Maximum: {{ profile.radioTypeBProperties.maxPowerLevel }}
+{%- endfor %}

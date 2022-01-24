@@ -1,0 +1,10 @@
+# {{ DNAC }}
+## Assurance Sensor Test Results
+{%- for test,value in assurance_tests.items() if test != "totalTestCount" %}
+### {{ test }}
+{%-     for inner_test in value %}
+#### {{ inner_test }}
+##### Pass Count: {{ value[inner_test].passCount }}
+##### Fail Count: {{ value[inner_test].failCount }}
+{%-     endfor %}
+{%- endfor %}

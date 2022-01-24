@@ -1,0 +1,38 @@
+# Sites
+{%- for site in sites %}
+## {{ site.name }}
+### Site Hierarchy Name: {{ site.siteNameHierarchy }}
+### IDs
+#### ID: {{ site.id }}
+#### Instance Tenant ID: {{ site.instanceTenantId }}
+#### Site Hierarchy ID: {{ site.siteHierarchy }}
+{%-     if site.additionalInfo %}
+{%-         for info in site.additionalInfo %}
+{%-             if info.attributes.type %}
+### Type: {{ info.attributes.type }}
+{%-             endif %}
+{%-             if info.nameSpace == "UMBRELLA" %}
+### Umbrella
+{%-                 for att in info.attributes %}
+#### Attribute: {{ info.attributes }}
+{%-                 endfor %}
+{%-             endif %}
+{%-             if info.nameSpace == "Location" %}
+### Location
+{%-                 if info.attributes.type == "area" %}
+#### Type: {{ info.attributes.type }}
+{%-                 else %}
+#### Country: {{ info.attributes.country }}
+#### Address: {{ info.attributes.address }}
+#### Latitude: {{ info.attributes.latitude }}
+#### Longitude: {{ info.attributes.longitude }}
+#### Type: {{ info.attributes.type }}
+{%-                 endif %}
+{%-             endif %}
+{%-             if info.nameSpace == "ETA" %}
+### ETA
+#### Ready: {{ info.attributes.ETAReady }}
+{%-             endif %}
+{%-         endfor %}
+{%-     endif %}
+{%- endfor %}

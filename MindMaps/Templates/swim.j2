@@ -1,0 +1,37 @@
+# {{ DNAC }}
+## Image
+{%- for image in swim %}
+### {{ image.name }}
+#### Description: {{ image.extendedAttributes.Description }}
+#### ID
+##### {{ image.imageUuid }}
+##### Service: {{ image.fileServiceId }}
+#### Golden: {{ image.isTaggedGolden }}
+#### Integrity: {{ image.imageIntegrityStatus }}
+#### Type: {{ image.imageType }}
+#### Vendor: {{ image.vendor }}
+#### Family: {{ image.family }}
+#### Created: {{ image.createdTime }}
+#### Filesize: {{ image.fileSize }}
+#### Source
+##### [Source]({{ image.imageSource }})
+##### Type: {{ image.importSourceType }}
+#### Version
+##### {{ image.displayVersion }}
+##### Full: {{ image.version }}
+#### Checksum
+##### MD5: {{ image.md5Checksum }}
+##### SHA: {{ image.shaCheckSum }}
+#### Application Type: {{ image.applicationType }}
+#### Feature: {{ image.feature }}
+#### Extended Attributes
+##### Boot ROM: {{ image.extendedAttributes.BOOTROM }}
+##### Minimum Flash Size: {{ image.extendedAttributes.MINFLASHSIZE }}
+##### Default Flash Size: {{ image.extendedAttributes.DEFAULT_MINFLASHSIZE }}
+##### Media: {{ image.extendedAttributes.MEDIA }}
+##### Default Boot ROM: {{ image.extendedAttributes.DEFAULT_BOOTROM }}
+##### Default RAM: {{ image.extendedAttributes.DEFAULT_RAM }}
+##### GAIA Feature: {{ image.extendedAttributes.GAIA_FEATURE }}
+##### Compession Code: {{ image.extendedAttributes.COMPRESSION_CODE }}
+##### RAM: {{ image.extendedAttributes.RAM }}
+{%- endfor %}
