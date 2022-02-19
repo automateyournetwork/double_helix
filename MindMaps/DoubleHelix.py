@@ -48,7 +48,7 @@ sitesJSON = sitesRAW.json()
 # Pass to Jinja2 Template 
 # -------------------------
 
-parsed_output = sites_template.render(sites = sitesJSON['response'],)
+parsed_output = sites_template.render(sites = sitesJSON['response'])
 
 # -------------------------
 # Save the markdown file
